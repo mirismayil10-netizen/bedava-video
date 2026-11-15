@@ -1,0 +1,19 @@
+name: Video yarat
+on:
+  workflow_dispatch:
+  push:
+    paths: ["scenes.json"]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python make_video.py --voice --voice-name az-AZ-BabekNeural
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: video.mp4
